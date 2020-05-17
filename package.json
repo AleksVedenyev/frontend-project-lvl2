@@ -4,10 +4,15 @@
   "description": "utility for finding differences in configuration files",
   "main": "index.js",
   "bin": {
-    "gendiff": "bin/gendiff.js"
+    "gendiff": "dist/bin/gendiff.js"
   },
+  "files": [
+    "dist"
+  ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "NODE_ENV=production babel src --out-dir dist --source-maps inline",
+    "prepublishOnly": "npm run build"
   },
   "repository": {
     "type": "git",
@@ -21,5 +26,12 @@
   "homepage": "https://github.com/AleksVedenyev/frontend-project-lvl2#readme",
   "dependencies": {
     "commander": "^4.1.1"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.9.6",
+    "@babel/node": "^7.8.7",
+    "@babel/preset-env": "^7.9.6",
+    "babel-eslint": "^10.1.0"
   }
 }
