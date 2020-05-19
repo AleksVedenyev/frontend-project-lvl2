@@ -4,15 +4,10 @@
   "description": "utility for finding differences in configuration files",
   "main": "index.js",
   "bin": {
-    "gendiff": "dist/bin/gendiff.js"
+    "gendiff": "bin/gendiff.js"
   },
-  "files": [
-    "dist"
-  ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "NODE_ENV=production babel src --out-dir dist --source-maps inline",
-    "prepublishOnly": "npm run build"
+    "test": "npx -n --experimental-vm-modules jest"
   },
   "repository": {
     "type": "git",
@@ -23,15 +18,15 @@
   "bugs": {
     "url": "https://github.com/AleksVedenyev/frontend-project-lvl2/issues"
   },
+  "type": "module",
   "homepage": "https://github.com/AleksVedenyev/frontend-project-lvl2#readme",
   "dependencies": {
     "commander": "^4.1.1"
   },
   "devDependencies": {
-    "@babel/cli": "^7.8.4",
-    "@babel/core": "^7.9.6",
-    "@babel/node": "^7.8.7",
-    "@babel/preset-env": "^7.9.6",
-    "babel-eslint": "^10.1.0"
+    "eslint": "^7.0.0",
+    "eslint-config-airbnb-base": "^14.1.0",
+    "eslint-plugin-import": "^2.20.2",
+    "eslint-plugin-jest": "^23.13.1"
   }
 }
