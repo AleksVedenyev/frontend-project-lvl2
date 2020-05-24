@@ -1,9 +1,11 @@
 import fs from 'fs';
 import path from 'path';
 
+const getPath = (filepath) => fs.readFileSync(path.resolve(process.cwd(), filepath));
+
 const getDiff = (filepath1, filepath2) => {
-  const getDataFromFirstJson = JSON.parse(fs.readFileSync(path.resolve(process.cwd(), filepath1)));
-  const getDataFromSecondJson = JSON.parse(fs.readFileSync(path.resolve(process.cwd(), filepath2)));
+  const getDataFromFirstJson = JSON.parse(getPath(filepath1));
+  const getDataFromSecondJson = JSON.parse(getPath(filepath2));
   const keysBefore = Object.keys(getDataFromFirstJson);
   const keysAfter = Object.keys(getDataFromSecondJson);
   const diffirenceOfBefore = keysBefore.reduce((acc, key) => {
@@ -25,7 +27,7 @@ const getDiff = (filepath1, filepath2) => {
     }
     return acc;
   }, diffirenceOfBefore);
-  return console.log(`{\n${diffirenceOfAfter.join('\n')}\n}`);
+  return `{\n${diffirenceOfAfter.join('\n')}\n}`;
 };
 
 export default getDiff;
