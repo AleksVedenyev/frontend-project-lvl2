@@ -4,8 +4,10 @@ import path from 'path';
 const getPath = (filepath) => fs.readFileSync(path.resolve(process.cwd(), filepath));
 
 const getDiff = (filepath1, filepath2) => {
-  const getDataFromFirstJson = JSON.parse(getPath(filepath1));
-  const getDataFromSecondJson = JSON.parse(getPath(filepath2));
+  const getAbsolutePath1 = getPath(filepath1);
+  const getAbsolutePath2 = getPath(filepath2);
+  const getDataFromFirstJson = JSON.parse(getAbsolutePath1);
+  const getDataFromSecondJson = JSON.parse(getPath(getAbsolutePath2));
   const keysBefore = Object.keys(getDataFromFirstJson);
   const keysAfter = Object.keys(getDataFromSecondJson);
   const diffirenceOfBefore = keysBefore.reduce((acc, key) => {
