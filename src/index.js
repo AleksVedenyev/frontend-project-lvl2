@@ -1,8 +1,8 @@
-import getParsedFile from './parsers.js';
+import getParsedData from './parsers.js';
 
 const getDiff = (filepath1, filepath2) => {
-  const getDataFromFirstPath = getParsedFile(filepath1);
-  const getDataFromSecondPath = getParsedFile(filepath2);
+  const getDataFromFirstPath = getParsedData(filepath1);
+  const getDataFromSecondPath = getParsedData(filepath2);
   const keysOfFirstFile = Object.keys(getDataFromFirstPath);
   const keysOfSecondFile = Object.keys(getDataFromSecondPath);
   const getDiffInFirstFile = keysOfFirstFile.reduce((acc, key) => {

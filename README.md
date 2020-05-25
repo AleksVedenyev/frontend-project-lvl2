@@ -28,3 +28,6 @@ Compairing two YAML files:
 
 [![asciicast](https://asciinema.org/a/j7JeXbWoc2QyzkdbTIpaizyHt.svg)](https://asciinema.org/a/j7JeXbWoc2QyzkdbTIpaizyHt)
 
+Compairing two 'ini' files:
+
+[![asciicast](https://asciinema.org/a/7A759mT0F8MqZBozaVQiMUBDA.svg)](https://asciinema.org/a/7A759mT0F8MqZBozaVQiMUBDA)
