@@ -20,5 +20,11 @@ Install latest version:
 
 `gendiff -h`
 
+Compairing two JSON files:
+
 [![asciicast](https://asciinema.org/a/O0cDWziDvxzVGPppNUmp2Sb75.svg)](https://asciinema.org/a/O0cDWziDvxzVGPppNUmp2Sb75)
+
+Compairing two YAML files:
+
+[![asciicast](https://asciinema.org/a/j7JeXbWoc2QyzkdbTIpaizyHt.svg)](https://asciinema.org/a/j7JeXbWoc2QyzkdbTIpaizyHt)
 
