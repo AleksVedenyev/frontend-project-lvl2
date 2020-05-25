@@ -1,33 +1,30 @@
-import fs from 'fs';
-import path from 'path';
-
-const getPath = (filepath) => fs.readFileSync(path.resolve(process.cwd(), filepath));
+import getParsedFile from './parsers.js';
 
 const getDiff = (filepath1, filepath2) => {
-  const getDataFromFirstJson = JSON.parse(getPath(filepath1));
-  const getDataFromSecondJson = JSON.parse(getPath(filepath2));
-  const keysBefore = Object.keys(getDataFromFirstJson);
-  const keysAfter = Object.keys(getDataFromSecondJson);
-  const diffirenceOfBefore = keysBefore.reduce((acc, key) => {
-    if (keysAfter.includes(key)) {
-      if (getDataFromFirstJson[key] === getDataFromSecondJson[key]) {
-        acc.push(`    ${key}: ${getDataFromSecondJson[key]}`);
+  const getDataFromFirstPath = getParsedFile(filepath1);
+  const getDataFromSecondPath = getParsedFile(filepath2);
+  const keysOfFirstFile = Object.keys(getDataFromFirstPath);
+  const keysOfSecondFile = Object.keys(getDataFromSecondPath);
+  const getDiffInFirstFile = keysOfFirstFile.reduce((acc, key) => {
+    if (keysOfSecondFile.includes(key)) {
+      if (getDataFromFirstPath[key] === getDataFromSecondPath[key]) {
+        acc.push(`    ${key}: ${getDataFromSecondPath[key]}`);
       } else {
-        acc.push([`  + ${key}: ${getDataFromSecondJson[key]}`]);
-        acc.push([`  - ${key}: ${getDataFromFirstJson[key]}`]);
+        acc.push([`  + ${key}: ${getDataFromSecondPath[key]}`]);
+        acc.push([`  - ${key}: ${getDataFromFirstPath[key]}`]);
       }
     } else {
-      acc.push([`  - ${key}: ${getDataFromFirstJson[key]}`]);
+      acc.push([`  - ${key}: ${getDataFromFirstPath[key]}`]);
     }
     return acc;
   }, []);
-  const diffirenceOfAfter = keysAfter.reduce((acc, key) => {
-    if (!keysBefore.includes(key)) {
-      acc.push([`  + ${key}: ${getDataFromSecondJson[key]}`]);
+  const getDiffInSecondFile = keysOfSecondFile.reduce((acc, key) => {
+    if (!keysOfFirstFile.includes(key)) {
+      acc.push([`  + ${key}: ${getDataFromSecondPath[key]}`]);
     }
     return acc;
-  }, diffirenceOfBefore);
-  return `{\n${diffirenceOfAfter.join('\n')}\n}`;
+  }, getDiffInFirstFile);
+  return `{\n${getDiffInSecondFile.join('\n')}\n}`;
 };
 
 export default getDiff;
