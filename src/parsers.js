@@ -15,7 +15,6 @@ const getParsedFile = (extension, file) => {
   return ini.parse(file);
 };
 
-
 export default (filepath) => {
   const file = getData(filepath);
   const fileExtension = path.extname(filepath);
