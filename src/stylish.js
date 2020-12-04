@@ -1,47 +1,46 @@
 import _ from 'lodash';
 
-const getBlank = (size) => ' '.repeat(size * 2);
+const getBlank = (deep) => ' '.repeat(deep * 4 + 2);
+const getDistanceToLastBracket = (deep) => ' '.repeat(deep * 4);
 
-const recursively = (value, size) => {
-  if (!_.isObject(value)) {
-    return value;
+const recursiveDeep = (node, deep) => {
+  if (!_.isObject(node)) {
+    return node;
   }
-  const isObject = Object.entries(value).map(([key, value2]) => {
-    if (_.isObject(value2)) {
-      return `      ${key}: ${recursively(value2, ' '.repeat(5))}`;
+
+  const deepObj = Object.entries(node).flatMap(([key, value]) => {
+    if (_.isObject(value)) {
+      return `  ${getBlank(deep)}${key}: ${recursiveDeep(value, deep + 1)}`;
     }
-    return `      ${key}: ${value2}`;
+    return `  ${getBlank(deep)}${key}: ${value}`;
   });
-  return `{\n${getBlank(size + 2)}${isObject}\n${getBlank(size)}}`;
+  return ['{', ...deepObj, `${getDistanceToLastBracket(deep)}}`].join('\n');
 };
 
-const render = (diff, depth) => {
-  const result = diff.flatMap((element) => {
-    const {
-      key, value, type, children,
-    } = element;
-    if (type === 'added') {
-      return `${getBlank(depth)}+ ${key}: ${recursively(value, depth + 1)}`;
-    }
-    if (type === 'unchanged') {
-      return `${getBlank(depth)}${key}: ${recursively(value, depth + 1)}`;
-    }
-    if (type === 'deleted') {
-      return `${getBlank(depth)}- ${key}: ${recursively(value, depth + 1)}`;
-    }
-    if (type === 'changed') {
-      return [
-        `${getBlank(depth)}- ${key}: ${recursively(value.oldValue, depth + 1)}`,
-        `${getBlank(depth)}+ ${key}: ${recursively(value.newValue, depth + 1)}`,
-      ];
-    }
-    if (type === 'embedded') {
-      return `${getBlank(depth)}  ${key}: {\n${render(children, depth + 2).join('\n')}\n${getBlank(depth + 1)}`;
-    }
-  });
+const render = (diff, depth) => diff.flatMap((element) => {
+  const {
+    key, value, type, children,
+  } = element;
+  if (type === 'added') {
+    return `${getBlank(depth)}+ ${key}: ${recursiveDeep(value, depth + 1)}`;
+  }
+  if (type === 'unchanged') {
+    return `${getBlank(depth)}  ${key}: ${recursiveDeep(value, depth + 1)}`;
+  }
+  if (type === 'deleted') {
+    return `${getBlank(depth)}- ${key}: ${recursiveDeep(value, depth + 1)}`;
+  }
+  if (type === 'changed') {
+    return `${getBlank(depth)}- ${key}: ${recursiveDeep(value.oldValue, depth + 1)}\n${getBlank(depth)}+ ${key}: ${recursiveDeep(value.newValue, depth + 1)}`;
+  }
+  if (type === 'embedded') {
+    return `${getBlank(depth)}  ${key}: {\n${render(children, depth + 1).join('\n')}\n${getBlank(depth)}  }`;
+  }
+});
+
+const diffStylish = (diff) => {
+  const result = render(diff, 0);
   return `{\n${result.join('\n')}\n}`;
 };
 
-const result = (diff) => render(diff, 1);
-
-export default result;
+export default diffStylish;
