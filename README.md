@@ -31,3 +31,7 @@ Compairing two YAML files:
 Compairing two 'ini' files:
 
 [![asciicast](https://asciinema.org/a/7A759mT0F8MqZBozaVQiMUBDA.svg)](https://asciinema.org/a/7A759mT0F8MqZBozaVQiMUBDA)
+
+Compairing two JSON-tree-format files:
+
+[![asciicast](https://asciinema.org/a/REgXUUNp66mYESaz1pwUCLgDL.svg)](https://asciinema.org/a/REgXUUNp66mYESaz1pwUCLgDL)
