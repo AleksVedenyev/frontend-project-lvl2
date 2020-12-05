@@ -36,6 +36,10 @@ Compairing two 'Tree-format' files rendering in Stylish format:
 
 [![asciicast](https://asciinema.org/a/REgXUUNp66mYESaz1pwUCLgDL.svg)](https://asciinema.org/a/REgXUUNp66mYESaz1pwUCLgDL)
 
-Compairing two 'Tree-format' files rendering in Plainh format:
+Compairing two 'Tree-format' files rendering in Plain format:
 
 [![asciicast](https://asciinema.org/a/Pn55DDCvup4L9Iz5LUVDO0s9t.svg)](https://asciinema.org/a/Pn55DDCvup4L9Iz5LUVDO0s9t)
+
+Compairing two 'Tree-format' files rendering in JSON format:
+
+[![asciicast](https://asciinema.org/a/OhjLHCdvV3jviclECVF4j3F4d.svg)](https://asciinema.org/a/OhjLHCdvV3jviclECVF4j3F4d)
