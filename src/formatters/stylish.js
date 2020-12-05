@@ -36,6 +36,7 @@ const render = (diff, depth) => diff.flatMap((element) => {
   if (type === 'embedded') {
     return `${getBlank(depth)}  ${key}: {\n${render(children, depth + 1).join('\n')}\n${getBlank(depth)}  }`;
   }
+  return null;
 });
 
 const diffStylish = (diff) => {

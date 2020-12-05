@@ -24,6 +24,7 @@ const render = (diff, parentsNamesOfObj) => diff.flatMap((element) => {
   if (type === 'embedded') {
     return render(children, namesOfObj);
   }
+  return null;
 });
 
 const diffPlain = (diff) => {
