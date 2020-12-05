@@ -12,7 +12,9 @@ const getFixturePath = (filename) => path.join(__dirname, '..', '__fixtures__', 
 const readFile = (filename) => fs.readFileSync(getFixturePath(filename), 'utf-8');
 
 test('getDiff', () => {
-  const expected = readFile('expectedStylish.txt');
-  expect(getDiff(getFixturePath('before.json'), getFixturePath('after.json'))).toEqual(expected);
-  expect(getDiff(getFixturePath('before.yml'), getFixturePath('after.yml'))).toEqual(expected);
+  const expectedStylish = readFile('expectedStylish.txt');
+  const expectPlain = readFile('expectPlain.txt');
+  expect(getDiff(getFixturePath('before.json'), getFixturePath('after.json'), 'stylish')).toEqual(expectedStylish);
+  expect(getDiff(getFixturePath('before.yml'), getFixturePath('after.yml'), 'stylish')).toEqual(expectedStylish);
+  expect(getDiff(getFixturePath('before.json'), getFixturePath('after.json'), 'plain')).toEqual(expectPlain);
 });
