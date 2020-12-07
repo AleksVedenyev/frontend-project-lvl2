@@ -12,10 +12,6 @@ Install latest version:
 
 `make install`
 
-`npm run build`
-
-`npm link`
-
 ### Launch
 
 `gendiff -h`
