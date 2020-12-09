@@ -1,5 +1,5 @@
 {
-  "name": "difference-calculator",
+  "name": "@vedenyev/frontend-project-lvl2",
   "version": "1.0.0",
   "description": "utility for finding differences in configuration files",
   "main": "index.js",
