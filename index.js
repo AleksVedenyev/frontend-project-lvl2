@@ -2,7 +2,6 @@ import fs from 'fs';
 import path from 'path';
 import getParsedData from './src/parsers.js';
 import getDiff from './src/getDiff.js';
-import stylish from './src/formatters/stylish.js';
 import formatSelector from './src/formatters/index.js';
 
 const readFile = (filepath) => fs.readFileSync(path.resolve(process.cwd(), filepath), 'utf-8');
