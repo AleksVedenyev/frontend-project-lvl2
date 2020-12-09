@@ -1,5 +1,4 @@
 import yaml from 'js-yaml';
-import path from 'path';
 import ini from 'ini';
 
 const getParsedFile = (extension, data) => {
@@ -15,7 +14,4 @@ const getParsedFile = (extension, data) => {
   }
 };
 
-export default (filepath, data) => {
-  const fileExtension = path.extname(filepath);
-  return getParsedFile(fileExtension, data);
-};
+export default getParsedFile;

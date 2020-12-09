@@ -3,13 +3,16 @@ import plain from './plain.js';
 import json from './json.js';
 
 const formatSelector = (diff, formatName) => {
-  if (formatName === 'plain') {
-    return plain(diff);
+  switch (formatName) {
+    case 'stylish':
+      return stylish(diff);
+    case 'plain':
+      return plain(diff);
+    case 'json':
+      return json(diff);
+    default:
+      throw new Error(`Unknown format: '${formatName}'`);
   }
-  if (formatName === 'json') {
-    return json(diff);
-  }
-  return stylish(diff);
 };
 
 export default formatSelector;
