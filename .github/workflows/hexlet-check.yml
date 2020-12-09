@@ -2,7 +2,7 @@ name: hexlet-check
 
 on:
   push:
-    branches: main
+    branches: master
 
 jobs:
   build:
