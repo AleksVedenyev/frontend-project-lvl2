@@ -3,11 +3,11 @@ import ini from 'ini';
 
 const getParsedFile = (extension, data) => {
   switch (extension) {
-    case '.json':
+    case 'json':
       return JSON.parse(data);
-    case '.yml':
+    case 'yml':
       return yaml.safeLoad(data);
-    case '.ini':
+    case 'ini':
       return ini.parse(data);
     default:
       throw new Error(`Unknown extension: '${extension}'`);
