@@ -36,7 +36,7 @@ const render = (diff, parentsNamesOfObj) => diff.flatMap((element) => {
   if (type === 'unchanged') {
     return '';
   }
-  return new Error('Unknown type!');
+  throw new Error('Unknown type!');
 });
 
 const diffPlain = (diff) => {
