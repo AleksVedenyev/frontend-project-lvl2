@@ -1,19 +1,13 @@
 import _ from 'lodash';
 
-const isValueComplex = (value) => {
+const stringify = (value) => {
   if (_.isObject(value)) {
     return '[complex value]';
   }
-  switch (typeof value) {
-    case 'boolean':
-      return value;
-    case 'number':
-      return value;
-    case 'string':
-      return `'${value}'`;
-    default:
-      return value;
+  if (typeof value === 'string') {
+    return `'${value}'`;
   }
+  return value;
 };
 
 const render = (diff, parentsNamesOfObj) => diff.flatMap((element) => {
@@ -22,13 +16,13 @@ const render = (diff, parentsNamesOfObj) => diff.flatMap((element) => {
   } = element;
   const parentNames = [...parentsNamesOfObj, key];
   if (type === 'added') {
-    return `Property '${parentNames.join('.')}' was added with value: ${isValueComplex(value)}`;
+    return `Property '${parentNames.join('.')}' was added with value: ${stringify(value)}`;
   }
   if (type === 'deleted') {
     return `Property '${parentNames.join('.')}' was removed`;
   }
   if (type === 'changed') {
-    return `Property '${parentNames.join('.')}' was updated. From ${isValueComplex(value.oldValue)} to ${isValueComplex(value.newValue)}`;
+    return `Property '${parentNames.join('.')}' was updated. From ${stringify(value.oldValue)} to ${stringify(value.newValue)}`;
   }
   if (type === 'embedded') {
     return render(children, parentNames);
