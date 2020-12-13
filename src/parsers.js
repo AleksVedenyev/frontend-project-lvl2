@@ -1,14 +1,14 @@
 import yaml from 'js-yaml';
 
-const getParsedFile = (extension, data) => {
-  switch (extension) {
+const parseFactory = (data, format) => {
+  switch (format) {
     case 'json':
       return JSON.parse(data);
     case 'yml':
       return yaml.safeLoad(data);
     default:
-      throw new Error(`Unknown extension: '${extension}'`);
+      throw new Error(`Unknown extension: '${format}'`);
   }
 };
 
-export default getParsedFile;
+export default parseFactory;

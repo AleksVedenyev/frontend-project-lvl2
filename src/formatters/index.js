@@ -2,17 +2,17 @@ import stylish from './stylish.js';
 import plain from './plain.js';
 import json from './json.js';
 
-const formatSelector = (diff, formatName) => {
-  switch (formatName) {
+const formatFactory = (data, format) => {
+  switch (format) {
     case 'stylish':
-      return stylish(diff);
+      return stylish(data);
     case 'plain':
-      return plain(diff);
+      return plain(data);
     case 'json':
-      return json(diff);
+      return json(data);
     default:
-      throw new Error(`Unknown format: '${formatName}'`);
+      throw new Error(`Unknown format: '${format}'`);
   }
 };
 
-export default formatSelector;
+export default formatFactory;
