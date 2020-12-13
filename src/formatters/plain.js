@@ -4,32 +4,44 @@ const isValueComplex = (value) => {
   if (_.isObject(value)) {
     return '[complex value]';
   }
-  return value;
+  switch (typeof value) {
+    case 'boolean':
+      return value;
+    case 'number':
+      return value;
+    case 'string':
+      return `'${value}'`;
+    default:
+      return value;
+  }
 };
 
 const render = (diff, parentsNamesOfObj) => diff.flatMap((element) => {
   const {
     key, value, type, children,
   } = element;
-  const namesOfObj = [...parentsNamesOfObj, key];
+  const parentNames = [...parentsNamesOfObj, key];
   if (type === 'added') {
-    return `Property '${namesOfObj.join('.')}' was added with value: '${isValueComplex(value)}'`;
+    return `Property '${parentNames.join('.')}' was added with value: ${isValueComplex(value)}`;
   }
   if (type === 'deleted') {
-    return `Property '${namesOfObj.join('.')}' was removed`;
+    return `Property '${parentNames.join('.')}' was removed`;
   }
   if (type === 'changed') {
-    return `Property '${namesOfObj.join('.')}' was updated. From '${isValueComplex(value.oldValue)}' to '${isValueComplex(value.newValue)}'`;
+    return `Property '${parentNames.join('.')}' was updated. From ${isValueComplex(value.oldValue)} to ${isValueComplex(value.newValue)}`;
   }
   if (type === 'embedded') {
-    return render(children, namesOfObj);
+    return render(children, parentNames);
   }
-  return null;
+  if (type === 'unchanged') {
+    return '';
+  }
+  return new Error('Unknown type!');
 });
 
 const diffPlain = (diff) => {
   const result = render(diff, []);
-  return `${result.join('\n')}`;
+  return `${result.filter((item) => item !== '').join('\n')}`;
 };
 
 export default diffPlain;
