@@ -1,20 +1,24 @@
 import _ from 'lodash';
 
-const getBlank = (deep) => ' '.repeat(deep * 4 + 2);
-const getDistanceToLastBracket = (deep) => ' '.repeat(deep * 4);
+const currentIndent = (depth) => ' '.repeat(depth * 4 + 2);
+const bracketIndent = (depth) => ' '.repeat(depth * 4);
 
-const recursiveDeep = (node, deep) => {
+const stringify = (node, depth) => {
   if (!_.isObject(node)) {
     return node;
   }
 
   const deepObj = Object.entries(node).flatMap(([key, value]) => {
     if (_.isObject(value)) {
-      return `  ${getBlank(deep)}${key}: ${recursiveDeep(value, deep + 1)}`;
+      return `${currentIndent(depth)}  ${key}: ${stringify(value, depth + 1)}`;
     }
-    return `  ${getBlank(deep)}${key}: ${value}`;
+    return `${currentIndent(depth)}  ${key}: ${value}`;
   });
-  return ['{', ...deepObj, `${getDistanceToLastBracket(deep)}}`].join('\n');
+  return [
+    '{',
+    ...deepObj,
+    `${bracketIndent(depth)}}`,
+  ].join('\n');
 };
 
 const render = (diff, depth) => diff.flatMap((element) => {
@@ -22,21 +26,27 @@ const render = (diff, depth) => diff.flatMap((element) => {
     key, value, type, children,
   } = element;
   if (type === 'added') {
-    return `${getBlank(depth)}+ ${key}: ${recursiveDeep(value, depth + 1)}`;
+    return `${currentIndent(depth)}+ ${key}: ${stringify(value, depth + 1)}`;
   }
   if (type === 'unchanged') {
-    return `${getBlank(depth)}  ${key}: ${recursiveDeep(value, depth + 1)}`;
+    return `${currentIndent(depth)}  ${key}: ${stringify(value, depth + 1)}`;
   }
   if (type === 'deleted') {
-    return `${getBlank(depth)}- ${key}: ${recursiveDeep(value, depth + 1)}`;
+    return `${currentIndent(depth)}- ${key}: ${stringify(value, depth + 1)}`;
   }
   if (type === 'changed') {
-    return `${getBlank(depth)}- ${key}: ${recursiveDeep(value.oldValue, depth + 1)}\n${getBlank(depth)}+ ${key}: ${recursiveDeep(value.newValue, depth + 1)}`;
+    return [
+      `${currentIndent(depth)}- ${key}: ${stringify(value.oldValue, depth + 1)}`,
+      `${currentIndent(depth)}+ ${key}: ${stringify(value.newValue, depth + 1)}`,
+    ].join('\n');
   }
   if (type === 'embedded') {
-    return `${getBlank(depth)}  ${key}: {\n${render(children, depth + 1).join('\n')}\n${getBlank(depth)}  }`;
+    return [
+      `${currentIndent(depth)}  ${key}: {\n${render(children, depth + 1).join('\n')}`,
+      `${bracketIndent(depth + 1)}}`,
+    ].join('\n');
   }
-  return null;
+  throw new Error(`Unknown type: ${type}!`);
 });
 
 const diffStylish = (diff) => {
