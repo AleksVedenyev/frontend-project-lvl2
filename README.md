@@ -25,17 +25,13 @@ Compairing two YAML files:
 
 [![asciicast](https://asciinema.org/a/j7JeXbWoc2QyzkdbTIpaizyHt.svg)](https://asciinema.org/a/j7JeXbWoc2QyzkdbTIpaizyHt)
 
-Compairing two 'ini' files:
-
-[![asciicast](https://asciinema.org/a/7A759mT0F8MqZBozaVQiMUBDA.svg)](https://asciinema.org/a/7A759mT0F8MqZBozaVQiMUBDA)
-
 Compairing two 'Tree-format' files rendering in Stylish format:
 
 [![asciicast](https://asciinema.org/a/REgXUUNp66mYESaz1pwUCLgDL.svg)](https://asciinema.org/a/REgXUUNp66mYESaz1pwUCLgDL)
 
 Compairing two 'Tree-format' files rendering in Plain format:
 
-[![asciicast](https://asciinema.org/a/Pn55DDCvup4L9Iz5LUVDO0s9t.svg)](https://asciinema.org/a/Pn55DDCvup4L9Iz5LUVDO0s9t)
+[![asciicast](https://asciinema.org/a/saxkWsJS4Puc9fY5zwmt00iaC.svg)](https://asciinema.org/a/saxkWsJS4Puc9fY5zwmt00iaC)
 
 Compairing two 'Tree-format' files rendering in JSON format:
 
